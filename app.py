@@ -1,3 +1,5 @@
+import json
+from pathlib import Path
 
 import streamlit as st
 
@@ -14,16 +16,44 @@ st.write(
     "influence human decisions when identifying suspicious messages."
 )
 
-st.subheader("Message Analysis")
+# Load predefined messages
+messages_path = Path(__file__).parent / "messages.json"
 
-message = st.text_area(
-    "Message to analyse",
-    placeholder="Enter or paste a message here...",
-    height=150
+with messages_path.open("r", encoding="utf-8") as file:
+    messages = json.load(file)
+
+st.subheader("Step 1: Review a Message")
+
+selected_message = st.selectbox(
+    "Choose a message to review:",
+    messages,
+    format_func=lambda message: message["title"]
 )
 
-if st.button("Analyse Message"):
-    if message.strip():
-        st.info("Message received. AI analysis will be added later.")
+st.markdown(f"**From:** {selected_message['sender']}")
+st.markdown(f"**Subject:** {selected_message['title']}")
+
+st.text_area(
+    "Message content",
+    value=selected_message["content"],
+    height=150,
+    disabled=True
+)
+
+st.subheader("Step 2: Make Your Initial Judgement")
+
+initial_judgement = st.radio(
+    "Do you think this message is safe or suspicious?",
+    ["Safe", "Suspicious"],
+    index=None
+)
+
+if st.button("Submit Initial Judgement"):
+    if initial_judgement is None:
+        st.warning("Please select a classification before continuing.")
     else:
-        st.warning("Please enter a message first.")
+        st.success(f"Your initial judgement: {initial_judgement}")
+        st.info(
+            "Your judgement has been recorded. "
+            "AI recommendations will be introduced in the next stage."
+        )
