@@ -4,20 +4,26 @@
     "title": "University Timetable Update",
     "sender": "timetable@university.example",
     "content": "Your updated timetable for next week is now available through the university student portal. Please sign in through your usual university website to view it.",
-    "actual_classification": "Safe"
+    "actual_classification": "Safe",
+    "ai_classification": "Safe",
+    "ai_confidence": 95
   },
   {
     "id": 2,
     "title": "Urgent Bank Verification",
     "sender": "security@account-verification.example",
     "content": "URGENT: Your bank account will be suspended within 24 hours unless you verify your details immediately at https://bank-verification.example.",
-    "actual_classification": "Suspicious"
+    "actual_classification": "Suspicious",
+    "ai_classification": "Safe",
+    "ai_confidence": 88
   },
   {
     "id": 3,
     "title": "Missed Parcel Delivery",
     "sender": "delivery@parcel-update.example",
     "content": "We attempted to deliver your parcel but could not complete delivery. Please pay a small redelivery fee at https://parcel-redelivery.example to avoid your package being returned.",
-    "actual_classification": "Suspicious"
+    "actual_classification": "Suspicious",
+    "ai_classification": "Suspicious",
+    "ai_confidence": 62
   }
 ]
